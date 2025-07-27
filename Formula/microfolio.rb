@@ -6,7 +6,7 @@ class Microfolio < Formula
   license "MIT"
   version_scheme 1
 
-   # System dependencies - Node 22 LTS required
+ # System dependencies - Node 22 LTS required
   depends_on "node@22"
   depends_on "pnpm"
   depends_on "git"
@@ -32,11 +32,13 @@ class Microfolio < Formula
         echo "  microfolio new <project-name>     Create a new portfolio"
         echo "  microfolio dev                    Start development server"
         echo "  microfolio build                  Build site for production"
+        echo "  microfolio preview                Preview built site locally"
         echo "  microfolio help                   Show this help"
         echo ""
         echo "Examples:"
         echo "  microfolio new my-portfolio       # Creates new project in ./my-portfolio"
         echo "  cd my-portfolio && microfolio dev # Starts development server"
+        echo "  microfolio build && microfolio preview # Build and preview production site"
         echo ""
       }
       
@@ -112,6 +114,28 @@ class Microfolio < Formula
           exec pnpm build
           ;;
           
+        "preview")
+          if [ ! -f "package.json" ]; then
+            echo "Error: No microfolio project detected in this folder"
+            exit 1
+          fi
+          
+          if [ ! -d "dist" ] && [ ! -d "build" ]; then
+            echo "Error: No built site found. Run 'microfolio build' first."
+            echo ""
+            echo "Quick start:"
+            echo "  microfolio build"
+            echo "  microfolio preview"
+            exit 1
+          fi
+          
+          echo "👀 Starting preview server for built site..."
+          echo "Your production site will be available at http://localhost:4173"
+          echo "Press Ctrl+C to stop the server"
+          echo ""
+          exec pnpm preview
+          ;;
+          
         "help"|"--help"|"-h"|"")
           show_help
           ;;
@@ -137,7 +161,13 @@ class Microfolio < Formula
          cd my-portfolio
          microfolio dev
       
-      3. Your site will be available at http://localhost:5173
+      3. Build and preview your production site:
+         microfolio build
+         microfolio preview
+      
+      Your site will be available at:
+      - Development: http://localhost:5173
+      - Preview: http://localhost:4173
       
       Full documentation: https://github.com/aker-dev/microfolio
     EOS
