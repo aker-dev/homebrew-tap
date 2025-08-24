@@ -1,8 +1,8 @@
 class Microfolio < Formula
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/0.2.0-beta.1.tar.gz"
-  sha256 "6fbc2a1e6ba48c49b59a139d0a76c9e0a28fe1ca864a8ae867c0cc4b23d6cd60"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/0.2.0-beta.2.tar.gz"
+  sha256 "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
   license "MIT"
   version_scheme 1
 
