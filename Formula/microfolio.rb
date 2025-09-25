@@ -34,11 +34,14 @@ cla  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.4.0-beta.7
         echo "  microfolio dev                    Start development server"
         echo "  microfolio build                  Build site for production"
         echo "  microfolio preview                Preview built site locally"
+        echo "  microfolio optimize-images        Generate WEBP thumbnails for all images"
+        echo "  microfolio clean-images           Remove all WEBP thumbnails"
         echo "  microfolio help                   Show this help"
         echo ""
         echo "Examples:"
         echo "  microfolio new my-portfolio       # Creates new project in ./my-portfolio"
         echo "  cd my-portfolio && microfolio dev # Starts development server"
+        echo "  microfolio optimize-images && microfolio build # Optimize images then build"
         echo "  microfolio build && microfolio preview # Build and preview production site"
         echo ""
       }
@@ -137,6 +140,26 @@ cla  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.4.0-beta.7
           exec pnpm preview
           ;;
           
+        "optimize-images")
+          if [ ! -f "package.json" ]; then
+            echo "Error: No microfolio project detected in this folder"
+            exit 1
+          fi
+          
+          echo "🖼️  Optimizing images and generating WEBP thumbnails..."
+          exec pnpm optimize-images
+          ;;
+          
+        "clean-images")
+          if [ ! -f "package.json" ]; then
+            echo "Error: No microfolio project detected in this folder"
+            exit 1
+          fi
+          
+          echo "🧹 Cleaning WEBP thumbnails..."
+          exec pnpm clean-images
+          ;;
+          
         "help"|"--help"|"-h"|"")
           show_help
           ;;
@@ -162,13 +185,17 @@ cla  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.4.0-beta.7
          cd my-portfolio
          microfolio dev
       
-      3. Build and preview your production site:
+      3. Optimize images and build your production site:
+         microfolio optimize-images
          microfolio build
          microfolio preview
       
-      Your site will be available at:
-      - Development: http://localhost:5173
-      - Preview: http://localhost:4173
+      Available commands:
+      - microfolio dev: Development server (http://localhost:5173)
+      - microfolio build: Build for production
+      - microfolio preview: Preview production site (http://localhost:4173)
+      - microfolio optimize-images: Generate WEBP thumbnails
+      - microfolio clean-images: Remove WEBP thumbnails
       
       Full documentation: https://github.com/aker-dev/microfolio
     EOS
