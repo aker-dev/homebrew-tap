@@ -1,4 +1,5 @@
-cla  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.4.0-beta.7.tar.gz"
+class Microfolio < Formula
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.4.0-beta.7.tar.gz"
   sha256 "b4867f0066fb8d2abce4124ab8c501a6de53f19e47556fa859b767c7196ad04c"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
