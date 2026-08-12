@@ -1,12 +1,12 @@
 class Microfolio < Formula
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "04f99d175dc96c9d39c339554b613b99b7a6d94a4d21eb6c937d133b573b91bc"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.8.2.tar.gz"
+  sha256 "8b8a86738656a3d2a0d61b2db2bb7b32215c21d17b386e44d55746373b7a86ad"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
   version_scheme 1
 
- # System dependencies - Node 22 LTS required
+ # System dependencies - Node 22.13+ and pnpm 11 required
   depends_on "node@22"
   depends_on "pnpm"
   depends_on "git"
