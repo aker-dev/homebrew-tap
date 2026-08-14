@@ -1,6 +1,6 @@
 class Microfolio < Formula
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.8.2.tar.gz"
-  sha256 "8b8a86738656a3d2a0d61b2db2bb7b32215c21d17b386e44d55746373b7a86ad"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "4e997b1d5f24d9ad3d3e19f5ac5629381dd4712b66a6dc6fc5c01691c94551be"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
@@ -101,7 +101,7 @@ class Microfolio < Formula
           fi
           
           echo "🚀 Starting development server..."
-          echo "Your site will be available at http://localhost:5173"
+          echo "Your site will be available at http://localhost:5555"
           echo "Press Ctrl+C to stop the server"
           echo ""
           exec pnpm dev
@@ -133,7 +133,7 @@ class Microfolio < Formula
           fi
           
           echo "👀 Starting preview server for built site..."
-          echo "Your production site will be available at http://localhost:4173"
+          echo "Your production site will be available at http://localhost:2001"
           echo "Press Ctrl+C to stop the server"
           echo ""
           exec pnpm preview
@@ -190,9 +190,9 @@ class Microfolio < Formula
          microfolio preview
       
       Available commands:
-      - microfolio dev: Development server (http://localhost:5173)
+      - microfolio dev: Development server (http://localhost:5555)
       - microfolio build: Build for production
-      - microfolio preview: Preview production site (http://localhost:4173)
+      - microfolio preview: Preview production site (http://localhost:2001)
       - microfolio optimize-images: Generate WEBP thumbnails
       - microfolio clean-images: Remove WEBP thumbnails
       
