@@ -25,9 +25,9 @@ Requires Node.js 22.13 or later and pnpm 11 — both are installed as dependenci
 microfolio new my-portfolio     # Create a new portfolio
 cd my-portfolio
 microfolio dev                  # Development server (http://localhost:5555)
-microfolio build                # Build for production
+microfolio build                # Build for production (optimizes images first)
 microfolio preview              # Preview the built site (http://localhost:2001)
-microfolio optimize-images      # Generate WEBP thumbnails
+microfolio optimize-images      # Regenerate WEBP thumbnails on their own
 microfolio clean-images         # Remove WEBP thumbnails
 microfolio help                 # Show all commands
 ```

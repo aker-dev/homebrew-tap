@@ -31,16 +31,15 @@ class Microfolio < Formula
         echo "Usage:"
         echo "  microfolio new <project-name>     Create a new portfolio"
         echo "  microfolio dev                    Start development server"
-        echo "  microfolio build                  Build site for production"
+        echo "  microfolio build                  Build site for production (optimizes images)"
         echo "  microfolio preview                Preview built site locally"
-        echo "  microfolio optimize-images        Generate WEBP thumbnails for all images"
+        echo "  microfolio optimize-images        Regenerate WEBP thumbnails without building"
         echo "  microfolio clean-images           Remove all WEBP thumbnails"
         echo "  microfolio help                   Show this help"
         echo ""
         echo "Examples:"
         echo "  microfolio new my-portfolio       # Creates new project in ./my-portfolio"
         echo "  cd my-portfolio && microfolio dev # Starts development server"
-        echo "  microfolio optimize-images && microfolio build # Optimize images then build"
         echo "  microfolio build && microfolio preview # Build and preview production site"
         echo ""
       }
@@ -184,16 +183,15 @@ class Microfolio < Formula
          cd my-portfolio
          microfolio dev
       
-      3. Optimize images and build your production site:
-         microfolio optimize-images
+      3. Build and preview your production site:
          microfolio build
          microfolio preview
       
       Available commands:
       - microfolio dev: Development server (http://localhost:5555)
-      - microfolio build: Build for production
+      - microfolio build: Build for production (optimizes images first)
       - microfolio preview: Preview production site (http://localhost:2001)
-      - microfolio optimize-images: Generate WEBP thumbnails
+      - microfolio optimize-images: Regenerate WEBP thumbnails on their own
       - microfolio clean-images: Remove WEBP thumbnails
       
       Full documentation: https://github.com/aker-dev/microfolio
