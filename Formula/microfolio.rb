@@ -76,15 +76,30 @@ class Microfolio < Formula
           rm -rf .git
           
           # Initialize as new git repository
-          git init
+          git init -b main
           git add .
-          git commit -m "Initial commit - microfolio project"
-          
+
+          # Without a configured identity the commit fails, and the script would
+          # carry on leaving the project uncommitted with no explanation
+          if ! git commit -q -m "Initial commit - microfolio project" 2>/dev/null; then
+            COMMIT_FAILED=1
+          fi
+
           # Install dependencies
           echo "📦 Installing dependencies..."
           pnpm install
           
           echo "✅ Project '$2' created successfully!"
+
+          if [ -n "$COMMIT_FAILED" ]; then
+            echo ""
+            echo "⚠️  The initial commit failed, usually because git has no identity."
+            echo "   Your files are staged. To commit them:"
+            echo "     git config --global user.name 'Your Name'"
+            echo "     git config --global user.email 'you@example.com'"
+            echo "     git commit -m 'Initial commit - microfolio project'"
+          fi
+
           echo ""
           echo "Next steps:"
           echo "  cd $2"
