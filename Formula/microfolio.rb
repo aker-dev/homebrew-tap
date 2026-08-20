@@ -12,14 +12,6 @@ class Microfolio < Formula
   depends_on "git"
 
   def install
-    # Install in libexec to avoid conflicts
-    libexec.install Dir["*"]
-    
-    # Install Node.js dependencies
-    cd libexec do
-      system "pnpm", "install", "--frozen-lockfile"
-    end
-    
     # Main script to create and manage microfolio projects
     (bin/"microfolio").write <<~EOS
       #!/bin/bash
