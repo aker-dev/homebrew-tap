@@ -64,16 +64,18 @@ class Microfolio < Formula
           mkdir "$2"
           cd "$2"
           
-          # Clone the actual repository as template
-          git clone https://github.com/aker-dev/microfolio.git temp_clone
-          
-          # Copy files from clone (excluding .git)
-          cp -r temp_clone/* .
-          cp -r temp_clone/.* . 2>/dev/null || true  # Copy hidden files, ignore errors
-          
-          # Clean up
-          rm -rf temp_clone
-          rm -rf .git
+          # Fetch the version this formula ships, not whatever main holds today
+          echo "⬇️  Fetching microfolio v#{version}..."
+          TEMPLATE_URL="https://github.com/aker-dev/microfolio/archive/refs/tags/v#{version}.tar.gz"
+
+          if ! curl -fsSL "$TEMPLATE_URL" -o template.tar.gz ||
+             ! tar -xzf template.tar.gz --strip-components=1; then
+            echo "Error: Could not fetch microfolio v#{version}"
+            cd ..
+            rm -rf "$2"
+            exit 1
+          fi
+          rm -f template.tar.gz
           
           # Initialize as new git repository
           git init -b main
