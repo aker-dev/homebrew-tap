@@ -1,6 +1,6 @@
 class Microfolio < Formula
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.13.2.tar.gz"
-  sha256 "0a8ddfb16357798b23823f5193d7450ff73a651e798d4c59fa5d05d0328302f1"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v0.14.0.tar.gz"
+  sha256 "2043595599044221f120ff8df54ed4fa6906c605f679a5971433281a85ee6e00"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
@@ -27,6 +27,8 @@ class Microfolio < Formula
         echo "  microfolio preview                Preview built site locally"
         echo "  microfolio optimize-images        Regenerate WEBP thumbnails without building"
         echo "  microfolio clean-images           Remove all WEBP thumbnails"
+        echo "  microfolio demo [--remove]        Unzip the thirty demo projects, or take them out"
+        echo "  microfolio update [version]       Update this site to a newer microfolio release"
         echo "  microfolio help                   Show this help"
         echo ""
         echo "Examples:"
@@ -167,6 +169,24 @@ class Microfolio < Formula
           exec pnpm clean-images
           ;;
           
+        "demo")
+          if [ ! -f "package.json" ]; then
+            echo "Error: No microfolio project detected in this folder"
+            exit 1
+          fi
+          shift
+          exec pnpm demo "$@"
+          ;;
+
+        "update")
+          if [ ! -f "package.json" ]; then
+            echo "Error: No microfolio project detected in this folder"
+            exit 1
+          fi
+          shift
+          exec pnpm update-microfolio "$@"
+          ;;
+
         "help"|"--help"|"-h"|"")
           show_help
           ;;
@@ -202,6 +222,8 @@ class Microfolio < Formula
       - microfolio preview: Preview production site (http://localhost:2001)
       - microfolio optimize-images: Regenerate WEBP thumbnails on their own
       - microfolio clean-images: Remove WEBP thumbnails
+      - microfolio demo: Unzip the thirty demo projects (--remove takes them out)
+      - microfolio update: Update this site to a newer microfolio release
       
       Full documentation: https://github.com/aker-dev/microfolio
     EOS
