@@ -4,10 +4,21 @@ class Microfolio < Formula
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
+  # A formula-only fix, with no new upstream release behind it: bumped so
+  # `brew upgrade` actually hands the node dependency below to people who
+  # already installed 1.0.1.
+  revision 1
   version_scheme 1
 
- # System dependencies - Node 22.13+ and pnpm 11 required
-  depends_on "node@22"
+  # System dependencies - Node 22.13+ and pnpm 11 required.
+  #
+  # "node", not "node@22": every versioned Node formula is keg-only, so Homebrew
+  # never links it onto PATH. Homebrew's pnpm is the JavaScript package, whose
+  # shebang is `#!/usr/bin/env node`, and it only depends on node for :build and
+  # :test — so on a Mac with no Node of its own, both `microfolio` and a bare
+  # `pnpm` died with `env: node: No such file or directory`. The unversioned
+  # formula is the only one that ends up on PATH.
+  depends_on "node"
   depends_on "pnpm"
   depends_on "git"
 
