@@ -1,6 +1,6 @@
 class Microfolio < Formula
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "e975004218b107fe7900e17eac3b1b20cf9204f5e8cd6a5450651dceff72fc26"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "53d5ab17a6862d55a6d51ee8992e72b4a2d6833f5a5108c6cc3f36b284eff913"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
@@ -81,10 +81,25 @@ class Microfolio < Formula
             COMMIT_FAILED=1
           fi
 
-          # Install dependencies
+          # Install dependencies. Without this check the script announced a
+          # success right after a fatal error and left the project unusable.
           echo "📦 Installing dependencies..."
-          pnpm install
-          
+          if ! pnpm install; then
+            echo ""
+            echo "❌ Installing the dependencies failed — see the error above."
+            echo "   The files of '$2' are in place, but the site will not run yet."
+            echo "   Once the cause is fixed:"
+            echo "     cd $2"
+            echo "     pnpm install"
+            if [ -n "$COMMIT_FAILED" ]; then
+              echo ""
+              echo "   The initial git commit failed too, usually because git has no"
+              echo "   identity. Your files are staged; set a user.name and user.email"
+              echo "   with 'git config --global', then commit them."
+            fi
+            exit 1
+          fi
+
           echo "✅ Project '$2' created successfully!"
 
           if [ -n "$COMMIT_FAILED" ]; then
