@@ -1,13 +1,9 @@
 class Microfolio < Formula
-  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v1.0.1.tar.gz"
-  sha256 "53d5ab17a6862d55a6d51ee8992e72b4a2d6833f5a5108c6cc3f36b284eff913"
+  url "https://github.com/aker-dev/microfolio/archive/refs/tags/v1.0.2.tar.gz"
+  sha256 "3a76cfc9c50cd9f47db7e8009855cd75fd7acac946069ef091cc1691bbe2da2b"
   desc "Modern static portfolio generator for creatives (designers, architects, photographers)"
   homepage "https://github.com/aker-dev/microfolio"
   license "MIT"
-  # A formula-only fix, with no new upstream release behind it: bumped so
-  # `brew upgrade` actually hands the node dependency below to people who
-  # already installed 1.0.1.
-  revision 1
   version_scheme 1
 
   # System dependencies - Node 22.13+ and pnpm 11 required.
