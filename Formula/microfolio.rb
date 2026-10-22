@@ -22,7 +22,7 @@ class Microfolio < Formula
     # Main script to create and manage microfolio projects
     (bin/"microfolio").write <<~EOS
       #!/bin/bash
-      
+
       # Help function
       show_help() {
         echo "microfolio - Static portfolio generator for creatives"
@@ -44,7 +44,7 @@ class Microfolio < Formula
         echo "  microfolio build && microfolio preview # Build and preview production site"
         echo ""
       }
-      
+
       # Check arguments
       case "$1" in
         "new")
@@ -53,18 +53,18 @@ class Microfolio < Formula
             echo "Usage: microfolio new <project-name>"
             exit 1
           fi
-          
+
           if [ -d "$2" ]; then
             echo "Error: Directory '$2' already exists"
             exit 1
           fi
-          
+
           echo "📁 Creating project '$2'..."
-          
+
           # Create project directory
           mkdir "$2"
           cd "$2"
-          
+
           # Fetch the version this formula ships, not whatever main holds today
           echo "⬇️  Fetching microfolio v#{version}..."
           TEMPLATE_URL="https://github.com/aker-dev/microfolio/archive/refs/tags/v#{version}.tar.gz"
@@ -77,7 +77,7 @@ class Microfolio < Formula
             exit 1
           fi
           rm -f template.tar.gz
-          
+
           # Initialize as new git repository
           git init -b main
           git add .
@@ -124,37 +124,37 @@ class Microfolio < Formula
           echo "  microfolio dev"
           echo ""
           ;;
-          
+
         "dev")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
             echo "Use 'microfolio new <name>' to create a new project"
             exit 1
           fi
-          
+
           echo "🚀 Starting development server..."
           echo "Your site will be available at http://localhost:5555"
           echo "Press Ctrl+C to stop the server"
           echo ""
           exec pnpm dev
           ;;
-          
+
         "build")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
             exit 1
           fi
-          
+
           echo "🏗️  Building site..."
           exec pnpm build
           ;;
-          
+
         "preview")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
             exit 1
           fi
-          
+
           if [ ! -d "dist" ] && [ ! -d "build" ]; then
             echo "Error: No built site found. Run 'microfolio build' first."
             echo ""
@@ -163,34 +163,34 @@ class Microfolio < Formula
             echo "  microfolio preview"
             exit 1
           fi
-          
+
           echo "👀 Starting preview server for built site..."
           echo "Your production site will be available at http://localhost:2001"
           echo "Press Ctrl+C to stop the server"
           echo ""
           exec pnpm preview
           ;;
-          
+
         "optimize-images")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
             exit 1
           fi
-          
+
           echo "🖼️  Optimizing images and generating WEBP thumbnails..."
           exec pnpm optimize-images
           ;;
-          
+
         "clean-images")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
             exit 1
           fi
-          
+
           echo "🧹 Cleaning WEBP thumbnails..."
           exec pnpm clean-images
           ;;
-          
+
         "demo")
           if [ ! -f "package.json" ]; then
             echo "Error: No microfolio project detected in this folder"
@@ -212,7 +212,7 @@ class Microfolio < Formula
         "help"|"--help"|"-h"|"")
           show_help
           ;;
-          
+
         *)
           echo "Unknown command: $1"
           echo ""
@@ -226,18 +226,18 @@ class Microfolio < Formula
   def caveats
     <<~EOS
       To get started with microfolio:
-      
+
       1. Create a new portfolio:
          microfolio new my-portfolio
-      
+
       2. Go to the folder and start the server:
          cd my-portfolio
          microfolio dev
-      
+
       3. Build and preview your production site:
          microfolio build
          microfolio preview
-      
+
       Available commands:
       - microfolio dev: Development server (http://localhost:5555)
       - microfolio build: Build for production (optimizes images first)
@@ -246,7 +246,7 @@ class Microfolio < Formula
       - microfolio clean-images: Remove WEBP thumbnails
       - microfolio demo: Unzip the thirty demo projects (--remove takes them out)
       - microfolio update: Update this site to a newer microfolio release
-      
+
       Full documentation: https://github.com/aker-dev/microfolio
     EOS
   end
@@ -254,16 +254,16 @@ class Microfolio < Formula
   test do
     # Test creating a new project
     system bin/"microfolio", "new", "test-portfolio"
-    assert_predicate testpath/"test-portfolio/package.json", :exist?
-    assert_predicate testpath/"test-portfolio/content", :exist?
-    
+    assert_path_exists testpath/"test-portfolio/package.json"
+    assert_path_exists testpath/"test-portfolio/content"
+
     # Test that dependencies are installed
     cd "test-portfolio" do
-      assert_predicate Pathname.pwd/"node_modules", :exist?
+      assert_path_exists Pathname.pwd/"node_modules"
     end
-    
+
     # Test help
-    assert_match "microfolio - Static portfolio generator", 
+    assert_match "microfolio - Static portfolio generator",
                  shell_output("#{bin}/microfolio help")
   end
 end
